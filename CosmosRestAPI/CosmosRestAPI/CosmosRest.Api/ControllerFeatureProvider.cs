@@ -19,7 +19,8 @@ namespace CosmosRest.Api
             // e.g for a model HseWasteDisposal the config will be named HseWasteDisposalConfiguration
             var assemblies = GetAssemblies();
             var aggregates =
-                assemblies.SelectMany(a => a.GetTypes().Where(c => c.IsClass && c.IsSubclassOf(typeof(AggregateRoot))));
+                assemblies.SelectMany(a =>
+                    a.GetTypes().Where(c => c.IsClass && c.Namespace.Equals(typeof(Customer).Namespace)));
 
             foreach (var aggregate in aggregates)
             {
@@ -36,7 +37,7 @@ namespace CosmosRest.Api
         private Assembly[] GetAssemblies()
         {
             // TODO: Load assemblies required here
-            return new[] {typeof(AggregateRoot).Assembly};
+            return new[] {typeof(Customer).Assembly};
         }
     }
 }

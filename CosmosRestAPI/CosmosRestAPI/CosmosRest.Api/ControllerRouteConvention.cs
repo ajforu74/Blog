@@ -14,8 +14,8 @@ namespace CosmosRest.Api
                 var data = controller.ControllerType.GetGenericArguments().FirstOrDefault();
                 if (data != null)
                 {
-
-                    var modelType = data.IsSubclassOf(typeof(AggregateRoot)) ?  data.Name : "dynamic/{modelType}";
+                    
+                    var modelType = data.Namespace.Equals(typeof(Customer).Namespace) ?  data.Name : "dynamic/{modelType}";
                     var selector = new SelectorModel
                     {
                         AttributeRouteModel = new AttributeRouteModel(new RouteAttribute($"api/{{resourceType}}/{{resourceId}}/{modelType}"))

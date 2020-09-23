@@ -2,15 +2,11 @@
 
 namespace CosmosRest.Domain.Aggregates
 {
-    public class Order: AggregateRoot
+    public class Order
     {
-        public string OrderName { get; private set; }
-        public string Address { get; private set; }
-
-        public Order(Guid id, string orderName, string address) : base(id.ToString())
-        {
-            OrderName = orderName;
-            Address = address;
-        }
+        public Guid Id { get; set; }
+        public Guid CustomerId { get; set; }
+        public string OrderName { get;  set; }
+        public string Address { get;  set; }
     }
 }

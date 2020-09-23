@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using Azure.Cosmos;
+using Azure.Cosmos.Serialization;
 
 namespace CosmosRest.Infrastructure
 {
@@ -19,9 +20,17 @@ namespace CosmosRest.Infrastructure
 
             public CosmosClientFactory(CosmosConfiguration configuration)
             {
+                var clientOptions = new CosmosClientOptions()
+                {
+                    SerializerOptions = new CosmosSerializationOptions()
+                    {
+                        PropertyNamingPolicy = CosmosPropertyNamingPolicy.CamelCase
+                    }
+                };
                 _client = new CosmosClient(
                     configuration.EndpointUrl,
-                    configuration.PrimaryKey
+                    configuration.PrimaryKey,
+                    clientOptions
                 );
                 _databaseName = configuration.DatabaseName;
             }
